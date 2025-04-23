@@ -77,7 +77,7 @@ jobs:
           ccache --max-size=2G
           ccache --set-config=compression=true
           echo "CCACHE_DIR=$HOME/.ccache" >> $GITHUB_ENV
-      
+
       - name: Restore ccache from cache
         uses: actions/cache@v4
         with:
@@ -85,7 +85,7 @@ jobs:
           key: ${{ inputs.android_version }}-${{ inputs.kernel_version }}-${{ inputs.sub_level }}-ccache-${{ github.sha }}
           restore-keys: |
             ${{ inputs.android_version }}-${{ inputs.kernel_version }}-${{ inputs.sub_level }}-ccache-
-      
+
       - name: Cache toolchain
         id: cache-toolchain
         uses: actions/cache@v4
@@ -182,7 +182,7 @@ jobs:
             echo "Error: Custom branch not provided for 'Other'" >&2
             exit 1
           fi
-      
+
       - name: Add KernelSU
         run: |
           echo "Changing to configuration directory: $CONFIG..."
@@ -204,9 +204,9 @@ jobs:
         run: |
           echo "Changing to configuration directory: $CONFIG..."
           cd "$CONFIG"
-          
+
           echo "Applying SUSFS patches..."
-          
+
           # Copy SUSFS patches
           cp ../susfs4ksu/kernel_patches/50_add_susfs_in_gki-${{ inputs.android_version }}-${{ inputs.kernel_version }}.patch ./common/
           cp ../susfs4ksu/kernel_patches/fs/* ./common/fs/
